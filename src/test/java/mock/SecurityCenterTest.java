@@ -1,35 +1,30 @@
 package mock;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.verify;
+
+@ExtendWith(MockitoExtension.class)
 public class SecurityCenterTest {
 
-    public class MockDoorPanel extends DoorPanel {
-        private boolean flag = false;
+    @Mock
+    private DoorPanel doorPanel;
 
-        @Override
-        void close() {
-            flag = true;
-        }
+    @InjectMocks
+    private SecurityCenter securityCenter;
 
-        public boolean getVerifyResult() {
-            return flag;
-        }
+    @BeforeEach
+    public void setUp() {
     }
-        private SecurityCenter securityCenter;
-        private MockDoorPanel mockDoorPanel;
 
-        @BeforeEach
-        public void setUp() {
-            mockDoorPanel = new MockDoorPanel();
-            securityCenter = new SecurityCenter(mockDoorPanel);
-        }
-
-        @Test
-        public void shouldVerifyDoorIsClosed() {
-            securityCenter.switchOn();
-            assertTrue(mockDoorPanel.getVerifyResult());
-        }
+    @Test
+    public void shouldVerifyDoorIsClosed() {
+        securityCenter.switchOn();
+        verify(doorPanel).close();
     }
+}

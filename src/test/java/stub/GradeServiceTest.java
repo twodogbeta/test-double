@@ -7,10 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GradeServiceTest {
-    /* 需求描述：
-    编写GradeService类的单元测试，单元测试calculateAverageGrades方法
-    * */
-    public class MockGradeSystem extends GradeSystem{
+
+    public static class MockGradeSystem extends GradeSystem{
 
        public  List<Double> gradesFor(long studentId) {
              return Arrays.asList(80.0, 90.0, 100.0);
